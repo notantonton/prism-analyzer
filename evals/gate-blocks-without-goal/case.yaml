@@ -1,0 +1,7 @@
+schema_version: "1.1"
+name: gate-blocks-without-goal
+expected_outcome: |
+  The description has no explicit goal (Causa Finalis). The dispatcher must stop at the gate: no
+  vector analysis and no Kill Matrix, and instead ask, in one message, for the result the system
+  should achieve and an observable success criterion (and also beneficiary/horizon and missing axis
+  data), without judging the goal or listing vulnerabilities.

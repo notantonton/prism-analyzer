@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: incident-alerting-cycle1
+expected_outcome: |
+  A first-cycle Kill Matrix (Матрица отказов) for the on-call/alerting system: header with cycle 1,
+  Causa Finalis, isolation mode and center of gravity; a relief map scoring all 8 vectors with E, S, L
+  and P = (E + 2S) x L; exactly 3 activated vectors (4 only on a tie with equal S); a block per
+  activated vector with status, one law from that vector's own arsenal, quoted evidence, cascade
+  mechanics and a threat index I x T x D; the remaining vectors listed as not activated; no advice.
