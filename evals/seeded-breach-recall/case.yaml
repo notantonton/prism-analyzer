@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: seeded-breach-recall
+expected_outcome: |
+  Completeness check against a known breach. The description contains a fatal breach seeded by the
+  case author; the source of truth is this case, not Prism's own verdicts. Production data and all
+  backups live in the same cloud account, and the production environment holds a key that can delete
+  the backups, so one incident named in the goal (production compromise, ransomware, an operator error
+  with that key, suspension of the account) destroys or locks both. A run in which every vector reports
+  УЗЕЛ ЗАЩИЩЁН fails this case. The paired case seeded-breach-closed-control is the same system with
+  this breach closed, so the two cases tell a run that misses a known breach apart from a run on a
+  system without it. The matrix also carries a ПОЛНОТА line with control-probe results and no advice.

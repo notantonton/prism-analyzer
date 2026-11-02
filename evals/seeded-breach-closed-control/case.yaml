@@ -1,0 +1,10 @@
+schema_version: "1.1"
+name: seeded-breach-closed-control
+expected_outcome: |
+  Paired control for seeded-breach-recall: the same backup system with the seeded breach closed
+  (backups in a separate account at another provider, production can only write there, object lock
+  for 35 days, admin keys kept outside production). The matrix must not report the closed
+  common-cause breach, and any fatal breach it does report must rest on verbatim quotes from the
+  description. If every activated vector reports УЗЕЛ ЗАЩИЩЁН, the matrix shows how far that verdict
+  is independently confirmed (ПОЛНОТА line, confirmation lines) instead of presenting it as proof that
+  the system has no breaches. No advice.

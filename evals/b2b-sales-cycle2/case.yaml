@@ -3,6 +3,8 @@ name: b2b-sales-cycle2
 expected_outcome: |
   A second-cycle Kill Matrix that applies the cycle modifiers: header shows cycle 2; vector 4.2
   re-checks its previous Goodhart breach in ПЕРЕПРОВЕРКА mode and gives a verdict; the unfixed
-  marketplace breach (2.2) is carried as an open breach and vector 2.2 is not re-run; 2.1 gets
-  immunity (P x 0.5); vectors not activated in cycle 1 get the blind-spot bonus (+3); no more than 4
-  vectors are active in total; no advice.
+  marketplace breach (2.2) is carried as an open breach and vector 2.2 is not re-run; 2.1 gets no
+  immunity, because its cycle-1 УЗЕЛ ЗАЩИЩЁН was never independently confirmed (the previous matrix
+  has no control probe); vectors not activated in cycle 1 get the blind-spot bonus (+3); no more than
+  4 vectors are active in total; every active vector, the re-check included, has a control-probe
+  result in the ПОЛНОТА line; no advice.
