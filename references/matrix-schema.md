@@ -4,7 +4,7 @@
 
 ```json
 {
-  "prism_version": "0.5.0",
+  "prism_version": "0.5.1",
   "previous_prism_version": null,
   "system": "oncall-alerting",
   "cycle": 1,
