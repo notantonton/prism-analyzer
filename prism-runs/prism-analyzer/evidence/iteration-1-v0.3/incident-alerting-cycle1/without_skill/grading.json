@@ -1,0 +1,59 @@
+{
+  "expectations": [
+    {
+      "text": "The response contains a relief map (Карта рельефа) that lists all 8 vectors (1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 4.1, 4.2), each with E, S, L and P values",
+      "passed": false,
+      "evidence": "No relief map; response is a free-form analysis by 'граням'"
+    },
+    {
+      "text": "Every P value in the relief map equals (E + 2*S) * L for its row",
+      "passed": false,
+      "evidence": "No E/S/L/P values"
+    },
+    {
+      "text": "Exactly 3 vectors are activated, or 4 only when the 3rd and 4th places have equal P and equal S",
+      "passed": false,
+      "evidence": "No vectors activated"
+    },
+    {
+      "text": "The header contains a cycle line showing cycle 1, a Causa Finalis line, an isolation-mode line and a center-of-gravity line",
+      "passed": false,
+      "evidence": "No cycle / Causa Finalis / isolation / center-of-gravity lines"
+    },
+    {
+      "text": "Every activated vector block has a status line, and every block with status ФАТАЛЬНАЯ БРЕШЬ has an applied law, the vulnerability essence, an evidence line with at least one verbatim quote from the user's description, cascade mechanics and a threat index I x T x D whose product is arithmetically correct",
+      "passed": false,
+      "evidence": "No vector blocks or threat indices"
+    },
+    {
+      "text": "Every applied law in a vector block belongs to that vector's own arsenal (its law number starts with the vector's number, e.g. 3.1.x inside vector 3.1)",
+      "passed": false,
+      "evidence": "No law-based vector blocks"
+    },
+    {
+      "text": "A НЕ АКТИВИРОВАНЫ line lists every non-activated vector together with its P",
+      "passed": false,
+      "evidence": "No НЕ АКТИВИРОВАНЫ line"
+    },
+    {
+      "text": "The Kill Matrix contains no advice or recommendations on how to fix the system",
+      "passed": false,
+      "evidence": "Contains an explicit fix plan ('Три самых сильных рычага', 8-week plan, configs)"
+    },
+    {
+      "text": "If the isolation line says emulation in a single context, the response warns that context leaks between vectors are possible; if it says subagents, the vectors were run as separate subagents",
+      "passed": false,
+      "evidence": "No isolation line at all"
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 9,
+    "total": 9,
+    "pass_rate": 0.0
+  },
+  "timing": {
+    "executor_duration_seconds": 381.0,
+    "total_duration_seconds": 381.0
+  }
+}

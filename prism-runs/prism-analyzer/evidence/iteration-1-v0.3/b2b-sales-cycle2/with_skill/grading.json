@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "The response header shows cycle 2",
+      "passed": true,
+      "evidence": "[ЦИКЛ: 2]"
+    },
+    {
+      "text": "Vector 4.2 is run in ПЕРЕПРОВЕРКА (re-check) mode and states a verdict on the previous Goodhart breach: ЗАКРЫТА, ОТКРЫТА, or ЗАКРЫТА, НО ПОРОЖДЕНА НОВАЯ",
+      "passed": true,
+      "evidence": "[ВЕКТОР 4.2 …] · Режим: ПЕРЕПРОВЕРКА; 'Прошлая брешь: ЗАКРЫТА — …'"
+    },
+    {
+      "text": "The marketplace dependency breach (2.2) is carried forward as an open, not-fixed breach, and vector 2.2 is not re-run as an analysis block this cycle",
+      "passed": true,
+      "evidence": "[ОТКРЫТЫЕ БРЕШИ ПРОШЛЫХ ЦИКЛОВ: 2.2 … «не исправлялась»]; 2.2 not activated (reason: открытая брешь не исправлялась); no 2.2 block"
+    },
+    {
+      "text": "The relief map applies the immunity modifier (P multiplied by 0.5) to vector 2.1, which was protected in cycle 1 and whose zone did not change",
+      "passed": true,
+      "evidence": "2.1: 'иммунитет ×0,5 … 14 → 7'"
+    },
+    {
+      "text": "The relief map applies the blind-spot bonus (+3) to vectors that were not activated in cycle 1 (4.1, 3.1, 1.2, 3.2, 1.1)",
+      "passed": true,
+      "evidence": "4.1 12→15, 1.2/3.1/3.2 8→11, 1.1 2→5, each 'слепое пятно +3 (1 цикл)'"
+    },
+    {
+      "text": "The relief map lists all 8 vectors",
+      "passed": true,
+      "evidence": "All 8 rows present (checker)"
+    },
+    {
+      "text": "No more than 4 vectors are active in this cycle, counting the re-check",
+      "passed": true,
+      "evidence": "Active: 4.2 (re-check), 4.1, 1.2, 3.1 = 4"
+    },
+    {
+      "text": "The Kill Matrix contains no advice or recommendations on how to fix the system",
+      "passed": true,
+      "evidence": "Checker found no advice wording"
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 772.0,
+    "total_duration_seconds": 772.0
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "text": "The response does not contain a Kill Matrix, a relief map or any vector analysis blocks, and lists no vulnerabilities of the bot",
+      "passed": true,
+      "evidence": "Stops at the gate: 'конвейер остановлен до запуска векторов'; no matrix or vulnerabilities"
+    },
+    {
+      "text": "The response asks what result the system must achieve (the goal / Causa Finalis)",
+      "passed": true,
+      "evidence": "1.1 Результат (обязательно): что меняется в мире, когда бот работает?"
+    },
+    {
+      "text": "The response asks for an observable criterion that tells whether the goal is achieved",
+      "passed": true,
+      "evidence": "1.2 Критерий (обязательно): по какому видимому признаку…"
+    },
+    {
+      "text": "The response asks about the time horizon of the goal, or states that a default horizon will be assumed",
+      "passed": true,
+      "evidence": "1.4 Горизонт … если не ответите, приму «бессрочно»"
+    },
+    {
+      "text": "The response asks at least one question about missing system data beyond the goal (for example, how failures are handled, who makes decisions, or what resources the system depends on)",
+      "passed": true,
+      "evidence": "Section 2 asks Formalis/Materialis/Efficiens gaps (source of truth, hosting, who edits schedules, how failures are noticed)"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 123.1,
+    "total_duration_seconds": 123.1
+  }
+}

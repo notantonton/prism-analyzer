@@ -1,0 +1,15 @@
+{
+  "eval_name": "incident-alerting-cycle1",
+  "prompt": "Хочу прогнать через Prism Analyzer нашу систему дежурств и алертинга, первый цикл.\n\nКак устроено: 40 микросервисов шлют метрики в один Prometheus, алерты идут через Alertmanager в общий Slack-канал #alerts и одновременно звонком дежурному через PagerDuty. Дежурит один инженер неделю, ротация из 6 человек, все они параллельно пишут фичи в спринте. Порог алерта — любое превышение p99 latency 200 мс в течение 1 минуты, выходит примерно 150 алертов в день. Ранбуков нет, всё знает тимлид Олег, если что — звонят ему. Постмортем пишем, только если инцидент длился больше часа, вывод обычно «добавить ещё один алерт». У клиентов SDK автоматический ретрай — 5 попыток без паузы. Prometheus и Alertmanager крутятся в том же k8s-кластере, что и прод. Бюджет на инфраструктуру фиксированный, новых людей в этом году не дадут.\n\nЦель: к концу года MTTR по инцидентам sev1 меньше 30 минут, чтобы держать SLA 99,9% для корпоративных клиентов.\n\nЕсли каких-то данных не хватает — помечай допущения, переспрашивать не надо, с завтрашнего дня я в отпуске.",
+  "assertions": [
+    "The response contains a relief map (Карта рельефа) that lists all 8 vectors (1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 4.1, 4.2), each with E, S, L and P values",
+    "Every P value in the relief map equals (E + 2*S) * L for its row",
+    "Exactly 3 vectors are activated, or 4 only when the 3rd and 4th places have equal P and equal S",
+    "The header contains a cycle line showing cycle 1, a Causa Finalis line, an isolation-mode line and a center-of-gravity line",
+    "Every activated vector block has a status line, and every block with status ФАТАЛЬНАЯ БРЕШЬ has an applied law, the vulnerability essence, an evidence line with at least one verbatim quote from the user's description, cascade mechanics and a threat index I x T x D whose product is arithmetically correct",
+    "Every applied law in a vector block belongs to that vector's own arsenal (its law number starts with the vector's number, e.g. 3.1.x inside vector 3.1)",
+    "A НЕ АКТИВИРОВАНЫ line lists every non-activated vector together with its P",
+    "The Kill Matrix contains no advice or recommendations on how to fix the system",
+    "If the isolation line says emulation in a single context, the response warns that context leaks between vectors are possible; if it says subagents, the vectors were run as separate subagents"
+  ]
+}

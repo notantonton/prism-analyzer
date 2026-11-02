@@ -1,0 +1,406 @@
+{
+  "metadata": {
+    "skill_name": "prism-analyzer",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-11-02T14:40:27Z",
+    "evals_run": [
+      "b2b-sales-cycle2",
+      "gate-blocks-without-goal",
+      "incident-alerting-cycle1"
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": "b2b-sales-cycle2",
+      "eval_name": "b2b-sales-cycle2",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 772.0,
+        "tokens": 178234,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response header shows cycle 2",
+          "passed": true,
+          "evidence": "[ЦИКЛ: 2]"
+        },
+        {
+          "text": "Vector 4.2 is run in ПЕРЕПРОВЕРКА (re-check) mode and states a verdict on the previous Goodhart breach: ЗАКРЫТА, ОТКРЫТА, or ЗАКРЫТА, НО ПОРОЖДЕНА НОВАЯ",
+          "passed": true,
+          "evidence": "[ВЕКТОР 4.2 …] · Режим: ПЕРЕПРОВЕРКА; 'Прошлая брешь: ЗАКРЫТА — …'"
+        },
+        {
+          "text": "The marketplace dependency breach (2.2) is carried forward as an open, not-fixed breach, and vector 2.2 is not re-run as an analysis block this cycle",
+          "passed": true,
+          "evidence": "[ОТКРЫТЫЕ БРЕШИ ПРОШЛЫХ ЦИКЛОВ: 2.2 … «не исправлялась»]; 2.2 not activated (reason: открытая брешь не исправлялась); no 2.2 block"
+        },
+        {
+          "text": "The relief map applies the immunity modifier (P multiplied by 0.5) to vector 2.1, which was protected in cycle 1 and whose zone did not change",
+          "passed": true,
+          "evidence": "2.1: 'иммунитет ×0,5 … 14 → 7'"
+        },
+        {
+          "text": "The relief map applies the blind-spot bonus (+3) to vectors that were not activated in cycle 1 (4.1, 3.1, 1.2, 3.2, 1.1)",
+          "passed": true,
+          "evidence": "4.1 12→15, 1.2/3.1/3.2 8→11, 1.1 2→5, each 'слепое пятно +3 (1 цикл)'"
+        },
+        {
+          "text": "The relief map lists all 8 vectors",
+          "passed": true,
+          "evidence": "All 8 rows present (checker)"
+        },
+        {
+          "text": "No more than 4 vectors are active in this cycle, counting the re-check",
+          "passed": true,
+          "evidence": "Active: 4.2 (re-check), 4.1, 1.2, 3.1 = 4"
+        },
+        {
+          "text": "The Kill Matrix contains no advice or recommendations on how to fix the system",
+          "passed": true,
+          "evidence": "Checker found no advice wording"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "gate-blocks-without-goal",
+      "eval_name": "gate-blocks-without-goal",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 123.1,
+        "tokens": 74541,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response does not contain a Kill Matrix, a relief map or any vector analysis blocks, and lists no vulnerabilities of the bot",
+          "passed": true,
+          "evidence": "Stops at the gate: 'конвейер остановлен до запуска векторов'; no matrix or vulnerabilities"
+        },
+        {
+          "text": "The response asks what result the system must achieve (the goal / Causa Finalis)",
+          "passed": true,
+          "evidence": "1.1 Результат (обязательно): что меняется в мире, когда бот работает?"
+        },
+        {
+          "text": "The response asks for an observable criterion that tells whether the goal is achieved",
+          "passed": true,
+          "evidence": "1.2 Критерий (обязательно): по какому видимому признаку…"
+        },
+        {
+          "text": "The response asks about the time horizon of the goal, or states that a default horizon will be assumed",
+          "passed": true,
+          "evidence": "1.4 Горизонт … если не ответите, приму «бессрочно»"
+        },
+        {
+          "text": "The response asks at least one question about missing system data beyond the goal (for example, how failures are handled, who makes decisions, or what resources the system depends on)",
+          "passed": true,
+          "evidence": "Section 2 asks Formalis/Materialis/Efficiens gaps (source of truth, hosting, who edits schedules, how failures are noticed)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "incident-alerting-cycle1",
+      "eval_name": "incident-alerting-cycle1",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "time_seconds": 611.6,
+        "tokens": 157723,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response contains a relief map (Карта рельефа) that lists all 8 vectors (1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 4.1, 4.2), each with E, S, L and P values",
+          "passed": true,
+          "evidence": "Relief map has 8 rows 1.1–4.2, each with E, S, L, P (checker: all_8=True)"
+        },
+        {
+          "text": "Every P value in the relief map equals (E + 2*S) * L for its row",
+          "passed": true,
+          "evidence": "Checker: (E+2S)×L equals P in all 8 rows (12, 27, 18, 18, 27, 16, 18, 27)"
+        },
+        {
+          "text": "Exactly 3 vectors are activated, or 4 only when the 3rd and 4th places have equal P and equal S",
+          "passed": true,
+          "evidence": "Activated 1.2, 3.1, 4.2 (P=27); 4th place P=18, no tie"
+        },
+        {
+          "text": "The header contains a cycle line showing cycle 1, a Causa Finalis line, an isolation-mode line and a center-of-gravity line",
+          "passed": true,
+          "evidence": "[ЦИКЛ: 1], [CAUSA FINALIS: …], [ИЗОЛЯЦИЯ: эмуляция…], [ЦЕНТР ТЯЖЕСТИ: …] all present"
+        },
+        {
+          "text": "Every activated vector block has a status line, and every block with status ФАТАЛЬНАЯ БРЕШЬ has an applied law, the vulnerability essence, an evidence line with at least one verbatim quote from the user's description, cascade mechanics and a threat index I x T x D whose product is arithmetically correct",
+          "passed": true,
+          "evidence": "Blocks 3.1, 1.2, 4.2 each contain law, essence, quoted ФАКТ evidence, cascade mechanics; indices 2×3×2=12, 2×2×2=8, 2×2×3=12 all correct"
+        },
+        {
+          "text": "Every applied law in a vector block belongs to that vector's own arsenal (its law number starts with the vector's number, e.g. 3.1.x inside vector 3.1)",
+          "passed": true,
+          "evidence": "Laws 3.1.6(+3.1.7), 1.2.8(+1.2.2), 4.2.1(+4.2.9) — all from own arsenal"
+        },
+        {
+          "text": "A НЕ АКТИВИРОВАНЫ line lists every non-activated vector together with its P",
+          "passed": true,
+          "evidence": "[НЕ АКТИВИРОВАНЫ: 2.1 (P=18) … 1.1 (P=12)] lists all 5"
+        },
+        {
+          "text": "The Kill Matrix contains no advice or recommendations on how to fix the system",
+          "passed": true,
+          "evidence": "Checker found no advice wording; only process line about bringing the matrix next cycle"
+        },
+        {
+          "text": "If the isolation line says emulation in a single context, the response warns that context leaks between vectors are possible; if it says subagents, the vectors were run as separate subagents",
+          "passed": true,
+          "evidence": "Response opens with the leak warning and repeats it in [ИЗОЛЯЦИЯ]"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "b2b-sales-cycle2",
+      "eval_name": "b2b-sales-cycle2",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.62,
+        "passed": 5,
+        "failed": 3,
+        "total": 8,
+        "time_seconds": 437.9,
+        "tokens": 107565,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response header shows cycle 2",
+          "passed": true,
+          "evidence": "[ЦИКЛ: 2] present (format copied from the prompt's previous matrix)"
+        },
+        {
+          "text": "Vector 4.2 is run in ПЕРЕПРОВЕРКА (re-check) mode and states a verdict on the previous Goodhart breach: ЗАКРЫТА, ОТКРЫТА, or ЗАКРЫТА, НО ПОРОЖДЕНА НОВАЯ",
+          "passed": true,
+          "evidence": "4.2 block labelled 'Режим: ПОЛНЫЙ (верификация правки)' with 'ИСХОДНАЯ БРЕШЬ ЗАКРЫТА' — verdict present, label differs (lenient pass)"
+        },
+        {
+          "text": "The marketplace dependency breach (2.2) is carried forward as an open, not-fixed breach, and vector 2.2 is not re-run as an analysis block this cycle",
+          "passed": false,
+          "evidence": "2.2 re-run as an analysis block ('Режим: СОКРАЩЁННЫЙ') instead of being carried as open"
+        },
+        {
+          "text": "The relief map applies the immunity modifier (P multiplied by 0.5) to vector 2.1, which was protected in cycle 1 and whose zone did not change",
+          "passed": false,
+          "evidence": "2.1 protection removed, P=18, no ×0.5 immunity"
+        },
+        {
+          "text": "The relief map applies the blind-spot bonus (+3) to vectors that were not activated in cycle 1 (4.1, 3.1, 1.2, 3.2, 1.1)",
+          "passed": false,
+          "evidence": "No +3 blind-spot bonus: 4.1 stays 12, 3.1 recomputed to 12 for other reasons"
+        },
+        {
+          "text": "The relief map lists all 8 vectors",
+          "passed": true,
+          "evidence": "All 8 rows present"
+        },
+        {
+          "text": "No more than 4 vectors are active in this cycle, counting the re-check",
+          "passed": true,
+          "evidence": "3 vectors active (4.2, 2.2, 2.1)"
+        },
+        {
+          "text": "The Kill Matrix contains no advice or recommendations on how to fix the system",
+          "passed": true,
+          "evidence": "No fix advice in the matrix ('нужно m ≥ 41,5%' is arithmetic)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "gate-blocks-without-goal",
+      "eval_name": "gate-blocks-without-goal",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.2,
+        "passed": 1,
+        "failed": 4,
+        "total": 5,
+        "time_seconds": 311.3,
+        "tokens": 90177,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response does not contain a Kill Matrix, a relief map or any vector analysis blocks, and lists no vulnerabilities of the bot",
+          "passed": false,
+          "evidence": "Produces a full vulnerability analysis ('Где развалится бот…')"
+        },
+        {
+          "text": "The response asks what result the system must achieve (the goal / Causa Finalis)",
+          "passed": false,
+          "evidence": "Never asks what result the system must achieve"
+        },
+        {
+          "text": "The response asks for an observable criterion that tells whether the goal is achieved",
+          "passed": false,
+          "evidence": "No success criterion requested"
+        },
+        {
+          "text": "The response asks about the time horizon of the goal, or states that a default horizon will be assumed",
+          "passed": false,
+          "evidence": "No horizon question"
+        },
+        {
+          "text": "The response asks at least one question about missing system data beyond the goal (for example, how failures are handled, who makes decisions, or what resources the system depends on)",
+          "passed": true,
+          "evidence": "Ends with 3 questions on missing data (does the bot write bookings to the sheet, prepayment model, how payment is confirmed)"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "incident-alerting-cycle1",
+      "eval_name": "incident-alerting-cycle1",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 9,
+        "total": 9,
+        "time_seconds": 381.0,
+        "tokens": 98512,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response contains a relief map (Карта рельефа) that lists all 8 vectors (1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 4.1, 4.2), each with E, S, L and P values",
+          "passed": false,
+          "evidence": "No relief map; response is a free-form analysis by 'граням'"
+        },
+        {
+          "text": "Every P value in the relief map equals (E + 2*S) * L for its row",
+          "passed": false,
+          "evidence": "No E/S/L/P values"
+        },
+        {
+          "text": "Exactly 3 vectors are activated, or 4 only when the 3rd and 4th places have equal P and equal S",
+          "passed": false,
+          "evidence": "No vectors activated"
+        },
+        {
+          "text": "The header contains a cycle line showing cycle 1, a Causa Finalis line, an isolation-mode line and a center-of-gravity line",
+          "passed": false,
+          "evidence": "No cycle / Causa Finalis / isolation / center-of-gravity lines"
+        },
+        {
+          "text": "Every activated vector block has a status line, and every block with status ФАТАЛЬНАЯ БРЕШЬ has an applied law, the vulnerability essence, an evidence line with at least one verbatim quote from the user's description, cascade mechanics and a threat index I x T x D whose product is arithmetically correct",
+          "passed": false,
+          "evidence": "No vector blocks or threat indices"
+        },
+        {
+          "text": "Every applied law in a vector block belongs to that vector's own arsenal (its law number starts with the vector's number, e.g. 3.1.x inside vector 3.1)",
+          "passed": false,
+          "evidence": "No law-based vector blocks"
+        },
+        {
+          "text": "A НЕ АКТИВИРОВАНЫ line lists every non-activated vector together with its P",
+          "passed": false,
+          "evidence": "No НЕ АКТИВИРОВАНЫ line"
+        },
+        {
+          "text": "The Kill Matrix contains no advice or recommendations on how to fix the system",
+          "passed": false,
+          "evidence": "Contains an explicit fix plan ('Три самых сильных рычага', 8-week plan, configs)"
+        },
+        {
+          "text": "If the isolation line says emulation in a single context, the response warns that context leaks between vectors are possible; if it says subagents, the vectors were run as separate subagents",
+          "passed": false,
+          "evidence": "No isolation line at all"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 502.2333,
+        "stddev": 337.992,
+        "min": 123.1,
+        "max": 772.0
+      },
+      "tokens": {
+        "mean": 136832.6667,
+        "stddev": 54912.3309,
+        "min": 74541,
+        "max": 178234
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.2733,
+        "stddev": 0.3164,
+        "min": 0.0,
+        "max": 0.62
+      },
+      "time_seconds": {
+        "mean": 376.7333,
+        "stddev": 63.4078,
+        "min": 311.3,
+        "max": 437.9
+      },
+      "tokens": {
+        "mean": 98751.3333,
+        "stddev": 8696.4703,
+        "min": 90177,
+        "max": 107565
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.73",
+      "time_seconds": "+125.5",
+      "tokens": "+38081"
+    }
+  },
+  "notes": [
+    "All three with-skill runs used Mode B (single context): the executor subagents had no subagent-launching tool. Mode A (true isolation) is NOT covered by these evals and must be checked from a main session.",
+    "S saturates on rich descriptions: in incident-alerting-cycle1 six of eight vectors got S=3 and three tied at P=27, so the map stops discriminating. The S scale (3 = 'two or more independent markers') is likely too easy to max out.",
+    "Fatal threshold may be loose: vector 3.1 reported 5 other fatal candidates out of 10 laws in one zone.",
+    "In b2b-sales-cycle2 the baseline copied the matrix format from the prompt, so assertions on cycle header, 8 rows, quota and no-advice do not discriminate there; the discriminating ones are the cycle modifiers (open breach carry-over, immunity, blind-spot).",
+    "Cost: with skill ~+38k tokens and ~+125 s per run on average; the gate case is cheaper with the skill (stops early).",
+    "Assertions are structural; whether the breaches are real and well-argued needs the Arbiter's judgement in the Outputs tab."
+  ]
+}

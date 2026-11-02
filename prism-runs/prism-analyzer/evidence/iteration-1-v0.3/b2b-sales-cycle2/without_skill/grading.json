@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "The response header shows cycle 2",
+      "passed": true,
+      "evidence": "[ЦИКЛ: 2] present (format copied from the prompt's previous matrix)"
+    },
+    {
+      "text": "Vector 4.2 is run in ПЕРЕПРОВЕРКА (re-check) mode and states a verdict on the previous Goodhart breach: ЗАКРЫТА, ОТКРЫТА, or ЗАКРЫТА, НО ПОРОЖДЕНА НОВАЯ",
+      "passed": true,
+      "evidence": "4.2 block labelled 'Режим: ПОЛНЫЙ (верификация правки)' with 'ИСХОДНАЯ БРЕШЬ ЗАКРЫТА' — verdict present, label differs (lenient pass)"
+    },
+    {
+      "text": "The marketplace dependency breach (2.2) is carried forward as an open, not-fixed breach, and vector 2.2 is not re-run as an analysis block this cycle",
+      "passed": false,
+      "evidence": "2.2 re-run as an analysis block ('Режим: СОКРАЩЁННЫЙ') instead of being carried as open"
+    },
+    {
+      "text": "The relief map applies the immunity modifier (P multiplied by 0.5) to vector 2.1, which was protected in cycle 1 and whose zone did not change",
+      "passed": false,
+      "evidence": "2.1 protection removed, P=18, no ×0.5 immunity"
+    },
+    {
+      "text": "The relief map applies the blind-spot bonus (+3) to vectors that were not activated in cycle 1 (4.1, 3.1, 1.2, 3.2, 1.1)",
+      "passed": false,
+      "evidence": "No +3 blind-spot bonus: 4.1 stays 12, 3.1 recomputed to 12 for other reasons"
+    },
+    {
+      "text": "The relief map lists all 8 vectors",
+      "passed": true,
+      "evidence": "All 8 rows present"
+    },
+    {
+      "text": "No more than 4 vectors are active in this cycle, counting the re-check",
+      "passed": true,
+      "evidence": "3 vectors active (4.2, 2.2, 2.1)"
+    },
+    {
+      "text": "The Kill Matrix contains no advice or recommendations on how to fix the system",
+      "passed": true,
+      "evidence": "No fix advice in the matrix ('нужно m ≥ 41,5%' is arithmetic)"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 3,
+    "total": 8,
+    "pass_rate": 0.62
+  },
+  "timing": {
+    "executor_duration_seconds": 437.9,
+    "total_duration_seconds": 437.9
+  }
+}

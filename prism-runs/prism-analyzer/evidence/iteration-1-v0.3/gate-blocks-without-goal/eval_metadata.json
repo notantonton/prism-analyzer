@@ -1,0 +1,11 @@
+{
+  "eval_name": "gate-blocks-without-goal",
+  "prompt": "Разнеси через призму архитектуру нашего телеграм-бота для записи в барбершоп. Бот на aiogram, база SQLite, напоминания клиентам шлёт cron раз в час, оплата через ЮKassa, админка — Google Sheets, которую бот перечитывает каждые 5 минут. Мастеров 4, у каждого своё расписание в той же таблице. Найди, где это всё развалится.",
+  "assertions": [
+    "The response does not contain a Kill Matrix, a relief map or any vector analysis blocks, and lists no vulnerabilities of the bot",
+    "The response asks what result the system must achieve (the goal / Causa Finalis)",
+    "The response asks for an observable criterion that tells whether the goal is achieved",
+    "The response asks about the time horizon of the goal, or states that a default horizon will be assumed",
+    "The response asks at least one question about missing system data beyond the goal (for example, how failures are handled, who makes decisions, or what resources the system depends on)"
+  ]
+}

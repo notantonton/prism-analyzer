@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "text": "The response does not contain a Kill Matrix, a relief map or any vector analysis blocks, and lists no vulnerabilities of the bot",
+      "passed": false,
+      "evidence": "Produces a full vulnerability analysis ('Где развалится бот…')"
+    },
+    {
+      "text": "The response asks what result the system must achieve (the goal / Causa Finalis)",
+      "passed": false,
+      "evidence": "Never asks what result the system must achieve"
+    },
+    {
+      "text": "The response asks for an observable criterion that tells whether the goal is achieved",
+      "passed": false,
+      "evidence": "No success criterion requested"
+    },
+    {
+      "text": "The response asks about the time horizon of the goal, or states that a default horizon will be assumed",
+      "passed": false,
+      "evidence": "No horizon question"
+    },
+    {
+      "text": "The response asks at least one question about missing system data beyond the goal (for example, how failures are handled, who makes decisions, or what resources the system depends on)",
+      "passed": true,
+      "evidence": "Ends with 3 questions on missing data (does the bot write bookings to the sheet, prepayment model, how payment is confirmed)"
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 4,
+    "total": 5,
+    "pass_rate": 0.2
+  },
+  "timing": {
+    "executor_duration_seconds": 311.3,
+    "total_duration_seconds": 311.3
+  }
+}
