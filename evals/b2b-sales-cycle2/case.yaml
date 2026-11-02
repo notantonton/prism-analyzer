@@ -5,6 +5,7 @@ expected_outcome: |
   re-checks its previous Goodhart breach in ПЕРЕПРОВЕРКА mode and gives a verdict; the unfixed
   marketplace breach (2.2) is carried as an open breach and vector 2.2 is not re-run; 2.1 gets no
   immunity, because its cycle-1 УЗЕЛ ЗАЩИЩЁН was never independently confirmed (the previous matrix
-  has no control probe); vectors not activated in cycle 1 get the blind-spot bonus (+3); no more than
-  4 vectors are active in total; every active vector, the re-check included, has a control-probe
-  result in the ПОЛНОТА line; no advice.
+  has no seed-probe confirmation); vectors not activated in cycle 1 get the blind-spot bonus (+3); no
+  more than 4 vectors are active in total; every active vector, the re-check included, has a seed-probe
+  result (on a copy of this system) in the ПОЛНОТА line; a ЗАКРЫТА verdict of the re-check counts as
+  confirmed only through a counter-seed probe; no advice.

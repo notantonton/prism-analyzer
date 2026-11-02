@@ -8,4 +8,4 @@ expected_outcome: |
   with that key, suspension of the account) destroys or locks both. A run in which every vector reports
   УЗЕЛ ЗАЩИЩЁН fails this case. The paired case seeded-breach-closed-control is the same system with
   this breach closed, so the two cases tell a run that misses a known breach apart from a run on a
-  system without it. The matrix also carries a ПОЛНОТА line with control-probe results and no advice.
+  system without it. The matrix also carries a ПОЛНОТА line with seed-probe results and no advice.

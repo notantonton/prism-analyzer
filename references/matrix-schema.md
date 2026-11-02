@@ -4,7 +4,7 @@
 
 ```json
 {
-  "prism_version": "0.6.0",
+  "prism_version": "0.7.0",
   "previous_prism_version": null,
   "system": "oncall-alerting",
   "cycle": 1,
@@ -17,12 +17,15 @@
   "snapshot": {"kind": "git | archive | copy | none", "ref": "adbca5d | sha256:… | path"},
   "scout": {"mode": "full | light", "files_read": 12, "discrepancies": 3},
   "isolation": "subagents | single-context | manual",
+  "context_composition": {"status": "established | not-established", "basis": "…"},
   "roles": "dispatcher-not-fixer | dispatcher-is-fixer",
   "completeness": {
     "status": "measured | not-measured",
     "reason": null,
     "found": 2, "known": 3,
-    "probe": [{"vector": "3.1", "case": "3.1-a", "result": "found | missed | other-breach | not-received", "blind": true}],
+    "probe": [{"vector": "3.1", "kind": "seed | counter-seed | health-check", "case": "p1 | 3.1-a",
+               "result": "found | missed | other-breach | not-received | distinguished | not-distinguished",
+               "blind": true, "context": "established | not-established", "counted": true}],
     "known_breaches": [{"source": "reality | review | fixer | arbiter", "text": "…", "zone": "1.2",
                         "found_as": "B1-1.2-01", "sealed": true}]
   },
@@ -54,11 +57,13 @@
       "border_control": []
     }
   ],
-  "protected": [{"vector": "2.1", "checked": [{"law": "2.1.3", "why_not_fatal": "…"}],
-                 "confirmation": "probe-found | unconfirmed | refuted", "confirmation_basis": "…"}],
+  "protected": [{"vector": "2.1", "mode": "full | recheck", "recheck_id": null, "recheck_verdict": null,
+                 "checked": [{"law": "2.1.3", "why_not_fatal": "…"}],
+                 "confirmation": "seed-found | unconfirmed | refuted", "confirmation_basis": "…",
+                 "verdict_confirmation": null, "verdict_confirmation_basis": null}],
   "micro": [{"vector": "1.1", "checked": [{"law": "1.1.4", "why_not_fatal": "…"}],
              "law": "1.1.3", "where": "…", "losses_pct": [5, 10], "losses_basis": "…",
-             "confirmation": "probe-found | unconfirmed | refuted", "confirmation_basis": "…"}],
+             "confirmation": "seed-found | unconfirmed | refuted", "confirmation_basis": "…"}],
   "open_from_previous": [{"id": "B1-2.2-01", "status": "not-fixed | carried"}],
   "not_activated": [{"vector": "1.1", "P": 12, "reason": "below-cutoff | no-data | open-breach | excluded"}],
   "contradictions": [],
@@ -72,9 +77,10 @@
 - `breaches` — в порядке блоков матрицы (шаг 7 SKILL.md); номер `id` постоянный между циклами. Брешь, найденная в режиме МИКРО, — здесь, с `"mode": "micro"`.
 - `probability_pct` / `harm_pct` — `null`, если в матрице «не оценивается»; тогда в `*_basis` — чего не хватает.
 - `basis` — `null`, если «не выявлено».
-- `completeness` — в каждом цикле (`references/completeness.md`). Известных брешей нет — `"status": "not-measured"`, `found` и `known` — `null`, в `reason` — почему. Проба с результатом `not-received` в `found` и `known` не входит. `blind: false` — режим Б; `sealed: false` — сведения Арбитра переданы открыто до съёмки.
-- `confirmation` — у каждого элемента `protected` и `micro`; в `confirmation_basis` — результат пробы зоны или пропущенная известная брешь.
+- `completeness` — в каждом цикле (`references/completeness.md`). Известных брешей нет — `"status": "not-measured"`, `found` и `known` — `null`, в `reason` — почему. В `found` и `known` входят только пробы `kind: "seed"` (`counted: true`); `counter-seed` и `health-check` — `counted: false`; проба с результатом `not-received` тоже не входит. `blind: false` — режим Б; `context: "not-established"` — состав контекста не установлен; `sealed: false` — сведения Арбитра переданы открыто до съёмки.
+- `confirmation` — у каждого элемента `protected` и `micro`: подтверждение защищённости посевом; в `confirmation_basis` — результат пробы посева зоны, состав контекста или пропущенная известная брешь.
+- Перепроверка с вердиктом ЗАКРЫТА или СНЯТА — элемент `protected` с `"mode": "recheck"`, `recheck_id` (номер бреши) и `recheck_verdict` (`"closed" | "dismissed"`); `verdict_confirmation` — `"counter-seed-distinguished" | "unconfirmed" | "refuted"`, в `verdict_confirmation_basis` — результат пробы контрпосева или известная брешь. У остальных элементов эти поля — `null`. Подтверждён узел, только если подтверждены обе части.
 - `micro` — только с цикла 2; в примере показан формат элемента.
-- `goal_control` (цикл N>1): `{"precision": [a, b], "confirmed_closures": [c, d], "misses": {"independent": e, "found_later": f}}`; `null` на месте показателя — «не определена» / «не измерены», а не лучшее значение.
+- `goal_control` (цикл N>1): `{"precision": [a, b], "confirmed_closures": [c, d], "unconfirmed_closures": u, "wrong_closures": [{"id": "B1-3.1-01", "cycle": K, "source": "prism | arbiter", "found_as": "B3-3.1-01 | текст", "recount": [[c, d], [c2, d]]}], "misses": {"independent": e, "found_later": f}}`; `null` на месте показателя — «не определена» / «не измерены», а не лучшее значение; `found_later` — нижняя граница.
 - `signals_next_cycle` — `"from": "completeness"` для известной бреши, которую прогон пропустил.
 - Советов и исправлений в JSON нет — как и в матрице.
