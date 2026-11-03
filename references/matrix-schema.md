@@ -4,7 +4,7 @@
 
 ```json
 {
-  "prism_version": "0.7.0",
+  "prism_version": "0.8.0",
   "previous_prism_version": null,
   "system": "oncall-alerting",
   "cycle": 1,
@@ -17,7 +17,10 @@
   "snapshot": {"kind": "git | archive | copy | none", "ref": "adbca5d | sha256:… | path"},
   "scout": {"mode": "full | light", "files_read": 12, "discrepancies": 3},
   "isolation": "subagents | single-context | manual",
-  "context_composition": {"status": "established | not-established", "basis": "…"},
+  "context_composition": {"status": "established | not-established", "basis": "…",
+                          "environment": "established | not-established",
+                          "content": "clean | materials-describe-probes | description-points-to-original",
+                          "placement": "separate-trees | violated: …", "trace": "none | contact: …"},
   "roles": "dispatcher-not-fixer | dispatcher-is-fixer",
   "completeness": {
     "status": "measured | not-measured",
@@ -25,7 +28,7 @@
     "found": 2, "known": 3,
     "probe": [{"vector": "3.1", "kind": "seed | counter-seed | health-check", "case": "p1 | 3.1-a",
                "result": "found | missed | other-breach | not-received | distinguished | not-distinguished",
-               "blind": true, "context": "established | not-established", "counted": true}],
+               "blind": true, "blind_reason": null, "context": "established | not-established", "counted": true}],
     "known_breaches": [{"source": "reality | review | fixer | arbiter", "text": "…", "zone": "1.2",
                         "found_as": "B1-1.2-01", "sealed": true}]
   },
@@ -77,7 +80,7 @@
 - `breaches` — в порядке блоков матрицы (шаг 7 SKILL.md); номер `id` постоянный между циклами. Брешь, найденная в режиме МИКРО, — здесь, с `"mode": "micro"`.
 - `probability_pct` / `harm_pct` — `null`, если в матрице «не оценивается»; тогда в `*_basis` — чего не хватает.
 - `basis` — `null`, если «не выявлено».
-- `completeness` — в каждом цикле (`references/completeness.md`). Известных брешей нет — `"status": "not-measured"`, `found` и `known` — `null`, в `reason` — почему. В `found` и `known` входят только пробы `kind: "seed"` (`counted: true`); `counter-seed` и `health-check` — `counted: false`; проба с результатом `not-received` тоже не входит. `blind: false` — режим Б; `context: "not-established"` — состав контекста не установлен; `sealed: false` — сведения Арбитра переданы открыто до съёмки.
+- `completeness` — в каждом цикле (`references/completeness.md`). Известных брешей нет — `"status": "not-measured"`, `found` и `known` — `null`, в `reason` — почему. В `found` и `known` входят только пробы `kind: "seed"` (`counted: true`); `counter-seed` и `health-check` — `counted: false`; проба с результатом `not-received` тоже не входит. `blind: false` — проба не слепая, причина в `blind_reason`: `"mode-b"`, `"materials-describe-probes"` (в том числе самоанализ Prism), `"description-points-to-original"`, `"placement"`, `"trace"`; `context: "not-established"` — состав контекста не установлен, невыполненная часть — в `context_composition`; `sealed: false` — сведения Арбитра переданы открыто до съёмки.
 - `confirmation` — у каждого элемента `protected` и `micro`: подтверждение защищённости посевом; в `confirmation_basis` — результат пробы посева зоны, состав контекста или пропущенная известная брешь.
 - Перепроверка с вердиктом ЗАКРЫТА или СНЯТА — элемент `protected` с `"mode": "recheck"`, `recheck_id` (номер бреши) и `recheck_verdict` (`"closed" | "dismissed"`); `verdict_confirmation` — `"counter-seed-distinguished" | "unconfirmed" | "refuted"`, в `verdict_confirmation_basis` — результат пробы контрпосева или известная брешь. У остальных элементов эти поля — `null`. Подтверждён узел, только если подтверждены обе части.
 - `micro` — только с цикла 2; в примере показан формат элемента.
