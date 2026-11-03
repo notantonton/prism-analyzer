@@ -4,7 +4,7 @@
 
 ```json
 {
-  "prism_version": "0.8.0",
+  "prism_version": "0.9.0",
   "previous_prism_version": null,
   "system": "oncall-alerting",
   "cycle": 1,
@@ -23,16 +23,18 @@
                           "placement": "separate-trees | violated: …", "trace": "none | contact: …"},
   "roles": "dispatcher-not-fixer | dispatcher-is-fixer",
   "completeness": {
-    "status": "measured | not-measured",
+    "status": "measured | not-measured-independently | not-measured",
     "reason": null,
     "found": 2, "known": 3,
+    "internal": {"seed": [1, 2], "fixer": [0, 1]},
     "probe": [{"vector": "3.1", "kind": "seed | counter-seed | health-check", "case": "p1 | 3.1-a",
                "result": "found | missed | other-breach | not-received | distinguished | not-distinguished",
                "blind": true, "blind_reason": null, "context": "established | not-established", "counted": true}],
-    "known_breaches": [{"source": "reality | review | fixer | arbiter", "text": "…", "zone": "1.2",
+    "known_breaches": [{"source": "reality | review | fixer | arbiter", "independent": true, "text": "…", "zone": "1.2",
                         "found_as": "B1-1.2-01", "sealed": true}]
   },
   "goal_control": null,
+  "tool_transition": null,
   "center_of_gravity": "…",
   "relief_map": [
     {"vector": "3.1", "E": 3, "S": 3, "L": 3, "modifiers": [], "P": 27,
@@ -81,9 +83,11 @@
 - `probability_pct` / `harm_pct` — `null`, если в матрице «не оценивается»; тогда в `*_basis` — чего не хватает.
 - `basis` — `null`, если «не выявлено».
 - `completeness` — в каждом цикле (`references/completeness.md`). Известных брешей нет — `"status": "not-measured"`, `found` и `known` — `null`, в `reason` — почему. В `found` и `known` входят только пробы `kind: "seed"` (`counted: true`); `counter-seed` и `health-check` — `counted: false`; проба с результатом `not-received` тоже не входит. `blind: false` — проба не слепая, причина в `blind_reason`: `"mode-b"`, `"materials-describe-probes"` (в том числе самоанализ Prism), `"description-points-to-original"`, `"placement"`, `"trace"`; `context: "not-established"` — состав контекста не установлен, невыполненная часть — в `context_composition`; `sealed: false` — сведения Арбитра переданы открыто до съёмки.
+- Контур проверки (`references/completeness.md`, раздел 1). `found` и `known` — только независимые источники: сведения вне контура (`independent: true`) и пробы посева, сделанного Арбитром или другим человеком. Посев Сеятеля и находки исправителя — в `internal` как `[найдено, всего]`, в `found` и `known` не входят. Независимых источников нет — `"status": "not-measured-independently"`, `found` и `known` — `null`, `internal` заполнен. Известных брешей нет ни в одном источнике — `"not-measured"`. `independent` у известной бреши — кто её установил: `false` для `source: "fixer"`, для всего, что сделал Prism любой версии, и когда установивший не назван.
+- `tool_transition` — только при самоанализе Prism: `{"basis": "independent | internal-only", "source": "…" | null}`; у остальных систем — `null`.
 - `confirmation` — у каждого элемента `protected` и `micro`: подтверждение защищённости посевом; в `confirmation_basis` — результат пробы посева зоны, состав контекста или пропущенная известная брешь.
 - Перепроверка с вердиктом ЗАКРЫТА или СНЯТА — элемент `protected` с `"mode": "recheck"`, `recheck_id` (номер бреши) и `recheck_verdict` (`"closed" | "dismissed"`); `verdict_confirmation` — `"counter-seed-distinguished" | "unconfirmed" | "refuted"`, в `verdict_confirmation_basis` — результат пробы контрпосева или известная брешь. У остальных элементов эти поля — `null`. Подтверждён узел, только если подтверждены обе части.
 - `micro` — только с цикла 2; в примере показан формат элемента.
-- `goal_control` (цикл N>1): `{"precision": [a, b], "confirmed_closures": [c, d], "unconfirmed_closures": u, "wrong_closures": [{"id": "B1-3.1-01", "cycle": K, "source": "prism | arbiter", "found_as": "B3-3.1-01 | текст", "recount": [[c, d], [c2, d]]}], "misses": {"independent": e, "found_later": f}}`; `null` на месте показателя — «не определена» / «не измерены», а не лучшее значение; `found_later` — нижняя граница.
+- `goal_control` (цикл N>1): `{"precision": [a, b], "confirmed_closures": {"independent": [c, d] | null, "internal": [c2, d]}, "unconfirmed_closures": u, "wrong_closures": {"independent": [{"id": "B1-3.1-01", "cycle": K, "source": "arbiter", "found_as": "текст", "recount": [[c, d], [c2, d]]}] | null, "internal": [{"id": "…", "cycle": K, "source": "prism | fixer", "found_as": "B3-3.1-01 | текст"}]}, "misses": {"independent": e | null, "fixer": e2, "found_later": f}}`. `independent` — только по независимым источникам; `null` на его месте — «не измерены независимо»; `internal`, `fixer` и `found_later` — внутренние, «внутренний — не измеряет»; `null` на месте показателя — «не определена» / «не измерены», а не лучшее значение; `found_later` — нижняя граница.
 - `signals_next_cycle` — `"from": "completeness"` для известной бреши, которую прогон пропустил.
 - Советов и исправлений в JSON нет — как и в матрице.
