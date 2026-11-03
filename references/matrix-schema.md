@@ -4,7 +4,7 @@
 
 ```json
 {
-  "prism_version": "0.9.0",
+  "prism_version": "0.10.0",
   "previous_prism_version": null,
   "system": "oncall-alerting",
   "cycle": 1,
@@ -84,7 +84,7 @@
 - `basis` — `null`, если «не выявлено».
 - `completeness` — в каждом цикле (`references/completeness.md`). Известных брешей нет — `"status": "not-measured"`, `found` и `known` — `null`, в `reason` — почему. В `found` и `known` входят только пробы `kind: "seed"` (`counted: true`); `counter-seed` и `health-check` — `counted: false`; проба с результатом `not-received` тоже не входит. `blind: false` — проба не слепая, причина в `blind_reason`: `"mode-b"`, `"materials-describe-probes"` (в том числе самоанализ Prism), `"description-points-to-original"`, `"placement"`, `"trace"`; `context: "not-established"` — состав контекста не установлен, невыполненная часть — в `context_composition`; `sealed: false` — сведения Арбитра переданы открыто до съёмки.
 - Контур проверки (`references/completeness.md`, раздел 1). `found` и `known` — только независимые источники: сведения вне контура (`independent: true`) и пробы посева, сделанного Арбитром или другим человеком. Посев Сеятеля и находки исправителя — в `internal` как `[найдено, всего]`, в `found` и `known` не входят. Независимых источников нет — `"status": "not-measured-independently"`, `found` и `known` — `null`, `internal` заполнен. Известных брешей нет ни в одном источнике — `"not-measured"`. `independent` у известной бреши — кто её установил: `false` для `source: "fixer"`, для всего, что сделал Prism любой версии, и когда установивший не назван.
-- `tool_transition` — только при самоанализе Prism: `{"basis": "independent | internal-only", "source": "…" | null}`; у остальных систем — `null`.
+- `tool_transition` — только при самоанализе Prism (SKILL.md, «Переход версии в роль инструмента»): `{"tool": {"version": "…", "commit": "…", "accepted_by": "путь к файлу приёмки" | null}, "acceptance": {"file": "…", "accepted": x, "debt": y, "not_accepted": ["B…"]} | null, "basis": "acceptance | none", "reason": "…" | null}`; матрица самоанализа основанием не служит, поэтому `basis` берётся только из приёмки; у остальных систем — `null`.
 - `confirmation` — у каждого элемента `protected` и `micro`: подтверждение защищённости посевом; в `confirmation_basis` — результат пробы посева зоны, состав контекста или пропущенная известная брешь.
 - Перепроверка с вердиктом ЗАКРЫТА или СНЯТА — элемент `protected` с `"mode": "recheck"`, `recheck_id` (номер бреши) и `recheck_verdict` (`"closed" | "dismissed"`); `verdict_confirmation` — `"counter-seed-distinguished" | "unconfirmed" | "refuted"`, в `verdict_confirmation_basis` — результат пробы контрпосева или известная брешь. У остальных элементов эти поля — `null`. Подтверждён узел, только если подтверждены обе части.
 - `micro` — только с цикла 2; в примере показан формат элемента.
